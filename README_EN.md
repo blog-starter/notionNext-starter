@@ -55,4 +55,25 @@ NEXT_PUBLIC_LINK       # Website URL
 [fork]: https://github.com/blog-starter/notionNext-starter/fork
 [pr]: https://github.com/blog-starter/notionNext-starter/compare
 
+### Prerequisites
+
+Before deployment, you need to:
+
+1. Copy the Notion database template:
+   - Visit the [example database](https://frosted-click-152.notion.site/176bb0eef86a80cc97e4c52b4a24c81f?v=176bb0eef86a817babb4000c29720602)
+   - Click the "Duplicate" button in the top right corner to copy to your workspace
+   - Wait for the database to be copied
+
+2. Get your NOTION_PAGE_ID:
+   - In your copied database page, click the "Share" button in the top right
+   - Click "Publish" to make the page public
+   - Copy the page link, which looks like: `https://xxx.notion.site/Blog-02ab3b8678004aa69e9e415905ef32a5`
+   - Extract the last 32-character string from the link as your NOTION_PAGE_ID: `02ab3b8678004aa69e9e415905ef32a5`
+
+> **Note**: The Notion page must be set to public access, otherwise content cannot be retrieved after deployment
+
+### Deployment Platforms
+
+NotionNext-starter supports multiple deployment platforms...
+
 

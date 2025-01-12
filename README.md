@@ -67,3 +67,24 @@ NEXT_PUBLIC_LINK       # 网站地址
 
 [fork]: https://github.com/blog-starter/notionNext-starter/fork
 [pr]: https://github.com/blog-starter/notionNext-starter/compare
+
+### 准备工作
+
+在开始部署之前，你需要：
+
+1. 复制 Notion 数据库模板：
+   - 访问[示例数据库](https://frosted-click-152.notion.site/176bb0eef86a80cc97e4c52b4a24c81f?v=176bb0eef86a817babb4000c29720602)
+   - 点击右上角的 "Duplicate" 按钮复制到你自己的工作区
+   - 等待数据库复制完成
+
+2. 获取 NOTION_PAGE_ID：
+   - 在你复制的数据库页面中，点击右上角的 "Share" 按钮
+   - 点击 "Publish" 将页面设为公开访问
+   - 复制页面链接，格式如：`https://xxx.notion.site/Blog-02ab3b8678004aa69e9e415905ef32a5`
+   - 提取链接中最后一段 32 位字符串，即为 NOTION_PAGE_ID：`02ab3b8678004aa69e9e415905ef32a5`
+
+> **注意**：必须将 Notion 页面设为公开访问，否则部署后无法正常获取内容
+
+### 部署平台
+
+NotionNext-starter 支持多个部署平台...
