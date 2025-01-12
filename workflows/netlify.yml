@@ -1,0 +1,46 @@
+name: Deploy NotionNext-starter to Netlify
+on:
+  # Triggers
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  # Schedule triggers
+  schedule:
+    - cron: '0 0,12 * * *'    # UTC 0:00 (Beijing 8:00) and UTC 12:00 (Beijing 20:00)
+    
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'yarn'
+          
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+        
+      - name: Set Environment Variables
+        run: |
+          echo "NOTION_PAGE_ID=${{ secrets.NOTION_PAGE_ID }}" >> $GITHUB_ENV
+          
+      - name: Build
+        run: yarn build
+        env:
+          NOTION_PAGE_ID: ${{ secrets.NOTION_PAGE_ID }}
+          
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v2.0
+        with:
+          publish-dir: './out'
+          production-branch: main
+          deploy-message: "Scheduled deploy from GitHub Actions"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 10 
