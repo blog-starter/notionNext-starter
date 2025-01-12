@@ -6,7 +6,7 @@ const { extractLangPrefix } = require('./lib/utils/pageId')
 
 // 打包时是否分析代码
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: BLOG.BUNDLE_ANALYZER
+  enabled: process.env.ANALYZE === 'true'
 })
 
 // 扫描项目 /themes下的目录名
@@ -84,16 +84,8 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true
   },
-  output: 'export',
+  output: process.env.EXPORT ? 'export' : undefined,
   staticPageGenerationTimeout: 120,
-  // 多语言， 在export时禁用
-  i18n: process.env.EXPORT
-    ? undefined
-    : {
-        defaultLocale: BLOG.LANG.slice(0, 2),
-        // 支持的所有多语言,按需填写即可
-        locales
-      },
   images: {
     // 图片压缩
     formats: ['image/avif', 'image/webp'],
@@ -108,7 +100,7 @@ const nextConfig = {
       'webmention.io',
       'ko-fi.com'
     ],
-    unoptimized: true
+    unoptimized: process.env.EXPORT ? true : false
   },
 
   // 默认将feed重定向至 /public/rss/feed.xml
@@ -230,6 +222,4 @@ const nextConfig = {
   }
 }
 
-module.exports = process.env.ANALYZE
-  ? withBundleAnalyzer(nextConfig)
-  : nextConfig
+module.exports = withBundleAnalyzer(nextConfig)
